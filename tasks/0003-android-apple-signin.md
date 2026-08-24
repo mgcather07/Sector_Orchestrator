@@ -1,0 +1,62 @@
+---
+task_id: 0003-android-apple-signin
+parent_feature: auth
+authorized_repositories:
+  - Android_Sector
+platform: android
+ios_behavior_reference: iOS_Sector/specs/auth.md (Sign in with Apple required)
+status: proposed
+deployment_authority: none
+review_requirement: Michael approves the branch/PR
+severity: MEDIUM
+---
+
+# 0003 — Android: add Sign in with Apple
+
+## Scope
+
+`auth.md` requires **Sign in with Apple**, and it is **entirely absent** on Android (the
+prior parity doc wrongly labeled it excluded-by-design — corrected in the 2026-08-23 audit).
+Users who created their account with Apple on iOS cannot sign in on Android.
+
+Work in `Android_Sector`:
+- Add Sign in with Apple via Firebase Auth's Apple OAuth provider (`apple.com`) using the
+  web-based OAuth flow (Apple has no native Android SDK; Firebase `startActivityForSignInWithProvider`
+  is the standard path).
+- Ensure the resulting account maps to the same Firebase uid / `users/{uid}` record as iOS
+  (so a cross-platform user is one account).
+- Match the iOS auth UI (Apple button placement, name/email handling on first sign-in).
+
+**Related (note, may be a separate task):** Android's Google Sign-In uses the **deprecated
+GMS `GoogleSignIn` API**. Not part of this task's acceptance, but flag for a follow-up to
+migrate to Credential Manager / Google Identity — it has been a historical source of Play
+Services error 10.
+
+## Out of scope
+
+- The Google Sign-In migration itself (separate follow-up).
+- iOS/Web changes.
+
+## Contract references
+
+- `auth.md` (providers required), `authentication.md` (orchestrator contract).
+
+## Dependencies
+
+- Apple Developer service ID + key already configured for the Firebase project (confirm;
+  iOS already uses Apple sign-in so the provider is likely enabled).
+
+## Acceptance criteria
+
+- [ ] Sign in with Apple works on an Android device.
+- [ ] An Apple account created on iOS signs into the **same** Firebase uid on Android.
+- [ ] First-time name/email handled per Apple's one-time disclosure.
+
+## Verification method
+
+- On-device: sign in with Apple on Android; confirm uid matches the iOS account (same
+  `users/{uid}`), profile intact.
+
+## Completion record
+
+_(empty until done)_
