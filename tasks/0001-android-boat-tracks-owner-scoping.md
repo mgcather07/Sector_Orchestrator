@@ -79,6 +79,12 @@ Fix in `Android_Sector` only:
 - **iOS reference:** `iOS_Sector/.../BoatTrack.swift` — `ownerUid`, `bootstrap(myUid:)`,
   `purgeUnowned`, `savedCount(for:)`, stop-on-sign-out.
 - **Verification done (this session):** `compileDebugKotlin` + Room KSP schema validation pass.
+  **Automated instrumented tests — GREEN on emulator** (Android PR #14, `connectedDebugAndroidTest`,
+  2 tests / 0 failures on Pixel_9_Pro): `migration2to3_preservesRows_addsNullOwner_andBackfillClaims`
+  proves the v2→v3 migration is non-destructive (legacy row survives, gains NULL owner, backfill
+  claims it); `scoping_isolatesOwners_hidesWhenSignedOut_scopesCountAndActive` proves the core
+  leak is closed — account B never sees account A's tracks, signed-out shows nothing, and
+  savedCount/activeTrack are per-user. **The data-layer privacy leak is verified closed.**
 - **Migration decision — BACKFILL, not purge.** Legacy unowned rows are claimed for the first
   signed-in user (data preserved). iOS *purges* unowned rows, but iOS's were pre-release test
   data; Android's are real shipped user tracks, so purging would delete saved nights. If
@@ -86,7 +92,8 @@ Fix in `Android_Sector` only:
 - **Residual (accepted):** on a genuinely shared device, pre-update tracks are claimed by
   whichever account opens tracks first — a narrow one-time window. Every NEW track is owned
   from birth and sign-out stops recording, so the go-forward leak is closed.
-- **Still pending — on-device (why status is `in_review`):** sign in as account B on a device
-  where A recorded → confirm A's tracks are NOT visible; confirm recording stops on sign-out;
-  confirm the 3rd free track is blocked; confirm existing tracks survive the update. Flip to
-  `done` after Michael runs these.
+- **Still pending — runtime/UI only (why status is `in_review`):** the data-layer isolation +
+  migration are now automatically proven, so only two runtime behaviors remain, neither
+  DB-testable: (1) the `AuthStateListener` actually stops the recording foreground service on
+  sign-out, and (2) the 3rd free track triggers the paywall (`Map.kt` cap UI). A quick manual
+  pass or a UI test covers both. Flip to `done` after either.
