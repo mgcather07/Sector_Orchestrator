@@ -86,10 +86,15 @@ verify before relying on them.
 18. **Who approves production deployments?** _Assumed Michael for all (App Store, Play,
     Firebase Hosting, RTDB rules, Cloud Functions). Confirm._
 
-19. **Which repository owns Firebase rules and Cloud Functions?** **[open — important]**
-    Both iOS and Web check in and deploy `database.rules.json`, and both have a `functions/`
-    codebase — and the two rules copies have **drifted** (conflict C4). _Designate one owner;
-    make the other generated/read-only._
+19. **Which repository owns Firebase rules and Cloud Functions?** **[answered for rules;
+    functions still open]** **Rules:** Michael chose **iOS** as the single owner
+    (2026-08-23, [ADR 0002](../decisions/0002-ios-owns-rtdb-rules.md)). iOS
+    `database.rules.json` is now the canonical **superset** (iOS PR #189); rules are edited
+    in iOS and deployed from iOS. _Remaining for rules:_ make Web's copy a mirror (or drop
+    it from Web's deploy) so a Web deploy can't reintroduce drift (conflict C4).
+    **Cloud Functions:** still open — iOS `functions/` and Web `functions/` hold *different*
+    function sets (iOS: notifications + `redeem`; Web: appstore/play notifications,
+    conditions proxy, admin utilities), so this needs its own ownership/mirroring decision.
 
 20. **Which existing parity documents remain current?** **[partial]** `PARITY-AUDIT.md`
     (2026-07-15) is partly stale (source moved past it); `iOS-PARITY-ROADMAP.md`

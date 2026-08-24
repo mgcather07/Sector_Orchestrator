@@ -157,8 +157,10 @@ See [`docs/open-questions.md`](docs/open-questions.md). Highlights awaiting Mich
   in the iOS repo) vs Android (Google Play Billing) vs Web (undetermined).
 - Confirm which Firebase products are in use beyond RTDB/Auth/FCM/Storage/Functions.
 - Confirm the intended parity level for the first Android and first Web releases.
-- Reconcile the iOS↔Web RTDB rules drift (`offerCodes` vs `playAccountTokens`,
-  entitlement-write logic) — see [`parity/unresolved-conflicts.md`](parity/unresolved-conflicts.md).
+- ~~Reconcile the iOS↔Web RTDB rules drift~~ — **rules ownership decided: iOS**
+  (2026-08-23, [ADR 0002](decisions/0002-ios-owns-rtdb-rules.md); iOS is now the canonical
+  superset). Remaining: mirror Web's copy (or drop it from Web's deploy) and decide
+  **Cloud Functions** ownership — see [`parity/unresolved-conflicts.md`](parity/unresolved-conflicts.md) C4 / Q19.
 
 ---
 

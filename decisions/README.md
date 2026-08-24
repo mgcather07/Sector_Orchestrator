@@ -23,3 +23,4 @@ Number sequentially (`NNNN-title.md`). Each ADR includes: **Context**, **Decisio
 | # | Title | Status |
 |---|---|---|
 | [0001](0001-orchestrator-as-cross-platform-source-of-truth.md) | Orchestrator as cross-platform source of truth | accepted |
+| [0002](0002-ios-owns-rtdb-rules.md) | iOS owns the Realtime Database rules | accepted |

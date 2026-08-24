@@ -68,6 +68,16 @@ Michael's decision is required.
   the two copies into that source, and make the other repo's copy read-only/generated. Until then,
   treat any rules deploy as a coordinated, approval-gated change.
 - **Michael's decision required:** **Yes** (which repo owns rules + Cloud Functions).
+- **RESOLVED (2026-08-23) — rules half.** Michael chose **iOS as the single owner of RTDB
+  rules** (see [ADR 0002](../decisions/0002-ios-owns-rtdb-rules.md)). A precise diff that
+  day refined the evidence: `entitlements` was in fact **identical**; the real drift was
+  Web-only `playAccountTokens`, iOS-only `offerCodes`, `redzoneDrafts` `.write`
+  (Web allowed `plan==='premium'`), and `registeredTeams` `.indexOn` (Web added
+  `seriesTeamId`). iOS `database.rules.json` was reconciled into a **strict superset**
+  (iOS PR #189) containing all of the above, so an iOS deploy can no longer delete a
+  Web/Android node. **Still open:** make Web's copy a mirror (or drop it from Web's
+  deploy) so a Web deploy can't reintroduce drift, and decide **Cloud Functions**
+  ownership (Q19).
 
 ## C5 — Android parity docs are stale relative to current source
 
