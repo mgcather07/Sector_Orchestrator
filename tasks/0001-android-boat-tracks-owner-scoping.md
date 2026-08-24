@@ -5,10 +5,11 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/boat-tracks.md; iOS tracks store (per-user ownerUid scoping, stop-on-sign-out)
-status: proposed
+status: approved
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: CRITICAL (privacy)
+approved: 2026-08-24 by Michael
 ---
 
 # 0001 — Android boat tracks: add owner scoping (privacy leak)
