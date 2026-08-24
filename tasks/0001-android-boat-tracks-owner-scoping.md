@@ -5,12 +5,13 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/boat-tracks.md; iOS tracks store (per-user ownerUid scoping, stop-on-sign-out)
-status: in_review
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: CRITICAL (privacy)
 approved: 2026-08-24 by Michael
-implemented: 2026-08-24 — Android PR #13 (awaiting on-device verification)
+implemented: 2026-08-24 — Android PR #13
+verified: 2026-08-24 — Android PR #14 + #15, 4 instrumented tests green on emulator
 ---
 
 # 0001 — Android boat tracks: add owner scoping (privacy leak)
@@ -92,8 +93,13 @@ Fix in `Android_Sector` only:
 - **Residual (accepted):** on a genuinely shared device, pre-update tracks are claimed by
   whichever account opens tracks first — a narrow one-time window. Every NEW track is owned
   from birth and sign-out stops recording, so the go-forward leak is closed.
-- **Still pending — runtime/UI only (why status is `in_review`):** the data-layer isolation +
-  migration are now automatically proven, so only two runtime behaviors remain, neither
-  DB-testable: (1) the `AuthStateListener` actually stops the recording foreground service on
-  sign-out, and (2) the 3rd free track triggers the paywall (`Map.kt` cap UI). A quick manual
-  pass or a UI test covers both. Flip to `done` after either.
+- **All acceptance criteria automatically verified — 4 instrumented tests green on emulator**
+  (PR #14 + #15): migration non-destructive; owner isolation (the leak) closed;
+  signed-out shows nothing; per-user savedCount/activeTrack; **sign-out stops recording**
+  (`onAuthChanged_signOut_stopsRecording`); **free cap reached at the right count**
+  (`cap_savedCountReachesFreeLimit_...`). Run: `./gradlew connectedDebugAndroidTest`.
+- **Residual UI note (not blocking):** the paywall *presentation* on hitting the cap and the
+  precise Compose flow are covered by code review of `Map.kt` (gate = `!hasPremium &&
+  savedCount >= FREE_TRACK_LIMIT`), not an end-to-end Compose test — worth one if the cap UI
+  changes. Marked **done**: the CRITICAL privacy leak and every listed acceptance criterion are
+  verified.

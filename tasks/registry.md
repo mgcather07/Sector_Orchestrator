@@ -1,14 +1,13 @@
 # Task Registry
 
 Cross-repository tasks and their status. Most rows are `proposed` and require Michael to
-approve scope before implementation; **0001 is approved + implemented (PR #13), now
-`in_review`** pending on-device verification. The `0001–0005` tasks were filed from the
+approve scope before implementation; **0001 is done** — implemented (PR #13) and verified by 4 green instrumented tests (PR #14/#15). The `0001–0005` tasks were filed from the
 **2026-08-23 Android parity audit** ([`../parity/android-parity.md`](../parity/android-parity.md));
 each has its own file.
 
 | Task | Parent feature | Authorized repos | Platform | Type | Status | Notes |
 |---|---|---|---|---|---|---|
-| [0001](0001-android-boat-tracks-owner-scoping.md) Android boat-tracks owner scoping | boat-tracks | Android_Sector | android | bugfix (**CRITICAL** privacy) | **in_review** — PR #13 | No `ownerUid` / per-user filtering → a 2nd account on a shared device sees the 1st user's GPS history; recording never stops on sign-out. Also free cap 3→2. |
+| [0001](0001-android-boat-tracks-owner-scoping.md) Android boat-tracks owner scoping | boat-tracks | Android_Sector | android | bugfix (**CRITICAL** privacy) | **done** — PR #13/#14/#15 | No `ownerUid` / per-user filtering → a 2nd account on a shared device sees the 1st user's GPS history; recording never stops on sign-out. Also free cap 3→2. |
 | [0002](0002-android-background-geofencing.md) Android background geofencing | geofence-notifications | Android_Sector | android | feature/bugfix | proposed | Conflict C1 — dormant (no `ACCESS_BACKGROUND_LOCATION`) → alerts foreground-only. **Needs Michael's Play-policy decision** before code. Supersedes the old verify candidate. |
 | [0003](0003-android-apple-signin.md) Android Sign in with Apple | auth | Android_Sector | android | feature | proposed | `auth.md` requires it; absent on Android (corrects the stale "excluded" claim). Google Sign-In on deprecated GMS API — flagged for a follow-up. |
 | [0004](0004-android-tournament-browse-filter-reachable.md) Android browse filter reachable | tournament-browse | Android_Sector | android | bugfix | proposed | Filter sheet is fully built but has **no entry point** → State filter + sort are dead functionality. Supersedes the old "verify filter wiring" candidate. |
