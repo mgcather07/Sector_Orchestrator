@@ -5,11 +5,12 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/boat-tracks.md; iOS tracks store (per-user ownerUid scoping, stop-on-sign-out)
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: CRITICAL (privacy)
 approved: 2026-08-24 by Michael
+implemented: 2026-08-24 — Android PR #13 (awaiting on-device verification)
 ---
 
 # 0001 — Android boat tracks: add owner scoping (privacy leak)
@@ -67,4 +68,25 @@ Fix in `Android_Sector` only:
 
 ## Completion record
 
-_(empty until done)_
+- **Implemented + merged:** Android PR #13 (2026-08-24), branch
+  `fix/android-boat-tracks-owner-scoping` → `Michael-Master`. 4 files, +87/−19.
+- **Files:** `tracks/BoatTrack.kt` (nullable `ownerUid` + `MIGRATION_2_3` + owner-scoped
+  `observeAll`/`activeTrack`/`savedCount` + `backfillUnowned`, free cap 3→2),
+  `tracks/TrackRecorder.kt` (reads uid from FirebaseAuth, stamps `ownerUid` at record start,
+  refuses to record signed-out, an `AuthStateListener` stops recording across an account
+  change and triggers the backfill, `stopAndSave` preserves `ownerUid`, `resume` owner-guard),
+  `tracks/TrackScreens.kt` + `home/DashboardTabBodies.kt` (scoped list + `attach()` on appear).
+- **iOS reference:** `iOS_Sector/.../BoatTrack.swift` — `ownerUid`, `bootstrap(myUid:)`,
+  `purgeUnowned`, `savedCount(for:)`, stop-on-sign-out.
+- **Verification done (this session):** `compileDebugKotlin` + Room KSP schema validation pass.
+- **Migration decision — BACKFILL, not purge.** Legacy unowned rows are claimed for the first
+  signed-in user (data preserved). iOS *purges* unowned rows, but iOS's were pre-release test
+  data; Android's are real shipped user tracks, so purging would delete saved nights. If
+  iOS-identical purge is preferred, it's a one-line swap (delete instead of `backfillUnowned`).
+- **Residual (accepted):** on a genuinely shared device, pre-update tracks are claimed by
+  whichever account opens tracks first — a narrow one-time window. Every NEW track is owned
+  from birth and sign-out stops recording, so the go-forward leak is closed.
+- **Still pending — on-device (why status is `in_review`):** sign in as account B on a device
+  where A recorded → confirm A's tracks are NOT visible; confirm recording stops on sign-out;
+  confirm the 3rd free track is blocked; confirm existing tracks survive the update. Flip to
+  `done` after Michael runs these.
