@@ -1,9 +1,10 @@
 # Task Registry
 
-Cross-repository tasks and their status. **No implementation tasks are authorized yet** —
-every row is `proposed` and requires Michael to approve scope before it becomes `approved`.
-The `0001–0005` tasks were filed from the **2026-08-23 Android parity audit**
-([`../parity/android-parity.md`](../parity/android-parity.md)); each has its own file.
+Cross-repository tasks and their status. Most rows are `proposed` and require Michael to
+approve scope before implementation; **0001 is approved + implemented (PR #13), now
+`in_review`** pending on-device verification. The `0001–0005` tasks were filed from the
+**2026-08-23 Android parity audit** ([`../parity/android-parity.md`](../parity/android-parity.md));
+each has its own file.
 
 | Task | Parent feature | Authorized repos | Platform | Type | Status | Notes |
 |---|---|---|---|---|---|---|
