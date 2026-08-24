@@ -6,6 +6,9 @@ _intent_ of the Sector product lives: what behavior is shared across platforms,
 which platform builds what, what the shared Firebase Realtime Database contract is,
 and how cross-platform changes are reviewed and rolled out.
 
+> 🧭 **New session touching more than one repo? Start with
+> [`START-HERE.md`](START-HERE.md)** — the read-order + per-repo git-flow checklist.
+
 > Sector is a **bowfishing** app. Users are **bowfishers**, never "anglers." The
 > current no-name display fallback is **"Member"** (changed from "Bowfisher" on
 > 2026-07-19 on iOS). This is a product rule, not a style preference — see
