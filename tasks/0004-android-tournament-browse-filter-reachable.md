@@ -5,10 +5,11 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/tournament-browse.md (filter sheet: When/Sort/State/50-mi)
-status: proposed
+status: approved
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM (dead functionality, easy fix)
+approved: 2026-08-24 by Michael
 ---
 
 # 0004 — Android tournament browse: make the filter sheet reachable
