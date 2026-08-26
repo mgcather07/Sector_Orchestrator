@@ -5,11 +5,12 @@ authorized_repositories:
   - Web_Sector
 platform: web
 ios_behavior_reference: iOS PR #191 — TournamentRosterView.swift, RegisterTeamView.swift (hostAdd mode)
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM
 approved: 2026-08-24 by Michael
+implemented: 2026-08-24 — Web main a3e08d6 (next build passes; manual owner check pending)
 ---
 
 # 0007 — Web: roster registration-order numbering + sort, and host add-team
@@ -68,4 +69,19 @@ belongs to the **owner/host** surface.
 
 ## Completion record
 
-_(empty until done)_
+- **Implemented + pushed:** Web `main` a3e08d6 (2026-08-24), 1 file
+  (`src/components/tournament/Registration.tsx`).
+- **iOS reference:** PR #191; **Android:** PR #16.
+- **Roster:** the flattened per-shooter list is numbered by the **team's registration
+  position** (once per team, on its first shooter row) instead of a raw row ordinal; a
+  **sort control** (Registration order default / Alphabetical). `subscribeRegisteredTeams`
+  already returns teams registration-sorted, so registration order was already the base.
+- **Host add-team:** host/owner/master gets a `+ Add team` button that opens the register
+  modal in host-add mode (free-text, always a new team, "Add a team" copy).
+- **No unique-id guard needed:** Web already IDs new teams with `newId()` (a push id), so
+  the deterministic-`{tid}_{uid}` overwrite trap that iOS/Android had does not exist here —
+  every host-add is naturally unique. registeredByUserId = host uid; registeredAt = now.
+- **Verification done:** `next build` passes (compile + lint + type-check). No backend change.
+- **Still pending — manual (why `in_review`):** as owner, open a tournament roster → confirm
+  numbering + sort; add TWO teams and confirm both appear (unique ids); confirm a non-owner
+  has no Add button; confirm the per-team number reads sensibly on multi-shooter teams.
