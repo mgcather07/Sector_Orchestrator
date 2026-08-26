@@ -106,6 +106,24 @@ Michael's decision is required.
   and a redzone feature contract.
 - **Michael's decision required:** Clarify intended sponsor UX when the redzone contract is promoted.
 
+## C7 — Achievements screen: Android had it, iOS didn't (reverse parity)
+
+- **Conflicting evidence:** Both platforms shipped the badge **engine** (`Achievements.swift` /
+  `AchievementBook.kt`) — a pure evaluator over the logbook. But only **Android** built a
+  browsable **`AchievementsScreen`** + a profile menu entry; **iOS never called `evaluate`** and
+  surfaced badges only contextually (trip detail). Android was ahead — a `not_evaluated`
+  Android-origin feature, the reverse of the usual iOS→Android direction.
+- **Precedence:** N/A — not a correctness conflict; a surfacing divergence. Per the orchestrator,
+  an Android feature does not auto-port to iOS; parity is intentional.
+- **RESOLVED (2026-08-24):** Michael chose to bring it to iOS. **iOS PR #192** added
+  `AchievementsView` (grouped badge gallery mirroring Android's screen) + a `ProfileView`
+  entry. Cheap because iOS already had the engine — UI-only. The 19 trip-based badges evaluate
+  live; the **3 Records-group badges** need the BAA record-crossover flags on `AchievementInput`
+  (iOS has no `RecordCheck.crossover` / reusable records fetch yet) and read as Locked until a
+  follow-up wires them.
+- **Michael's decision required:** No further — decision made. Open follow-up: iOS record-crossover
+  wiring (port `RecordCheck.crossover` + a BAA-records fetch) to light up the 3 Records badges.
+
 ---
 
 _Add new conflicts here as they are found. Do not resolve a conflict by editing away one
