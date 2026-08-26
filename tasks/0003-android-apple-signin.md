@@ -5,10 +5,11 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/auth.md (Sign in with Apple required)
-status: proposed
+status: approved
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM
+approved: 2026-08-24 by Michael
 ---
 
 # 0003 — Android: add Sign in with Apple
