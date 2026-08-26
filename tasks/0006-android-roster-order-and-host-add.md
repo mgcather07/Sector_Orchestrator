@@ -5,11 +5,12 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS PR #191 — TournamentRosterView.swift, RegisterTeamView.swift (hostAdd mode)
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM
 approved: 2026-08-24 by Michael
+implemented: 2026-08-24 — Android PR #16 (compiles; on-device verification pending)
 ---
 
 # 0006 — Android: roster registration-order numbering + sort, and host add-team
@@ -70,4 +71,18 @@ registered first, and a team without a smart device couldn't be entered).
 
 ## Completion record
 
-_(empty until done)_
+- **Implemented + merged:** Android PR #16 (2026-08-24), 4 files, +132/−36.
+- **Files:** `tournament/live/TournamentLiveContent.kt` (`RosterContent` — registration-order
+  numbering badge + `RosterSort` menu; `canHostAdd`/`onAddTeam` params + Add-team button),
+  `tournament/live/RegisterTeamScreen.kt` (`hostAdd` mode — unique `hostDraftId`, skips
+  team-pick/squad linkage, free-text name, add-after-close), `navigation/MainNavigation.kt`
+  (`hostAdd` nav arg on `tournament_register`), `tournament/TournamentProfile.kt` (wire
+  `canHostAdd = isHostUser` + navigate `?hostAdd=true`).
+- **iOS reference:** PR #191 — `TournamentRosterView.swift`, `RegisterTeamView.swift`.
+- **Verification done:** `compileDebugKotlin` passes.
+- **Unique-id trap avoided:** host-add uses a per-add UUID (remembered once, reused across
+  retries), NOT the deterministic `{tid}_{uid}` — confirmed in code.
+- **Still pending — on-device (why `in_review`):** open a tournament roster → numbering +
+  sort correct; as host, add TWO teams and confirm both persist (no overwrite) and appear in
+  registration order; confirm a non-host has no Add button; confirm hidden for external (BAA)
+  events. Flip to `done` after Michael runs these.
