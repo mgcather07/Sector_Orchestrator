@@ -5,11 +5,12 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/tournament-browse.md (filter sheet: When/Sort/State/50-mi)
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM (dead functionality, easy fix)
 approved: 2026-08-24 by Michael
+implemented: 2026-08-24 — Android PR #17 (compiles; quick on-device tap-through pending)
 ---
 
 # 0004 — Android tournament browse: make the filter sheet reachable
@@ -52,4 +53,14 @@ Work in `Android_Sector`:
 
 ## Completion record
 
-_(empty until done)_
+- **Root cause confirmed:** `browse/BrowseListScreen.kt` — the `TournamentFilterSheet`
+  (State / Sort / Nearby) and its `showFilterSheet` state were fully built, but the toolbar
+  filter icon had been removed (`actions = { … Filter icon removed … }`) and **nothing set
+  `showFilterSheet = true`**. So State + Latest/Name sort were reachable by no path.
+- **Fix (Android PR #17):** restored a `FilterList` `IconButton` in the browse `TopAppBar`
+  that opens the sheet, tinted primary when `anyFilterActive`; added an **"Adjust filters"**
+  `TextButton` to the empty state when filters are active.
+- **Verification done:** `compileDebugKotlin` passes.
+- **Still pending — quick on-device tap-through (why `in_review`):** open Tournaments → tap
+  the filter icon → sheet opens → set a State + Latest/Name sort → list responds; confirm the
+  icon tints when a filter is active and "Adjust filters" shows on an empty filtered result.
