@@ -5,10 +5,11 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS PR #191 — TournamentRosterView.swift, RegisterTeamView.swift (hostAdd mode)
-status: proposed
+status: approved
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM
+approved: 2026-08-24 by Michael
 ---
 
 # 0006 — Android: roster registration-order numbering + sort, and host add-team
