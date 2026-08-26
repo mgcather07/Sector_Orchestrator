@@ -5,11 +5,12 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/auth.md (Sign in with Apple required)
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM
 approved: 2026-08-24 by Michael
+implemented: 2026-08-24 — Android PR #18 (compiles; BLOCKED on Firebase console Apple-provider config)
 ---
 
 # 0003 — Android: add Sign in with Apple
@@ -60,4 +61,25 @@ Services error 10.
 
 ## Completion record
 
-_(empty until done)_
+- **Implemented + merged:** Android PR #18 (2026-08-24), 2 files, +58.
+- **Approach:** Android has no native Apple SDK, so this uses Firebase's **OAuth web flow** —
+  `FirebaseAuth.startActivityForSignInWithProvider(activity, OAuthProvider("apple.com"))`,
+  resuming any `pendingAuthResult`. Success routes through the SAME `ensureUserRecord` heal +
+  `navigateHomeAfterAuth` that email/Google login use → a cross-platform Apple account lands
+  on the same `/users/{uid}`.
+- **Files:** `login/AuthComponents.kt` (`AppleButton`), `login/Login.kt` (`completeAppleSignIn`
+  + `startAppleSignIn` + button under Google).
+- **Verification done:** `compileDebugKotlin` passes.
+- **⚠️ BLOCKED on backend config (Michael) — the reason it's not `done`:** the Apple provider
+  must be enabled in the **Firebase console** with an Apple **Services ID + private key +
+  return URL** (`https://sector-9393c.firebaseapp.com/__/auth/handler`). iOS uses the NATIVE
+  Apple credential path, which does **not** require this web-provider config — so it may be
+  unconfigured. Until it's set up, the button starts the flow but Firebase rejects it with
+  `operation-not-allowed`. Steps: Firebase console → Authentication → Sign-in method → Apple →
+  enable + fill Services ID/key/redirect; Apple Developer → the Services ID's Return URLs must
+  include the handler above.
+- **Then verify on-device:** tap Sign in with Apple → Apple web sheet → authorize → lands on
+  Home as the same account; a second sign-in reuses the same uid.
+- **Follow-up (optional):** the Signup screen only offers email/Google — add `AppleButton`
+  there too for symmetry; also migrate Google Sign-In off the deprecated GMS API (noted in
+  scope).
