@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/UI/Tab Bar/TabBar.swift + RootView.swift (LakeScorer.warmAll), MyLakes.swift — iOS #196
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -56,4 +56,28 @@ slow/blackholed snapshot host does not prevent the score from appearing.
 
 ## Completion record
 
-_(empty — approved, not yet implemented)_
+**2026-09-07 — implemented, in review.** Branch
+`feat/0009-my-lakes-launch-preload` **stacked on 0008** →
+**PR [Android_Sector#21](https://github.com/mgcather07/Android_Sector/pull/21)**
+(base is the 0008 branch; retarget to `Michael-Master` after #20 merges). 2 files,
++33/−17, client-only:
+
+- **`MainActivity.kt`** — in the existing "on user load" `LaunchedEffect`, call
+  `LakeStore.setUser(u.id)` + `LakeScorer.warmAll(LakeStore.lakes.value)` so the
+  watchlist is scored at launch, not on first My Lakes open. Idempotent. On sign-out,
+  `LakeScorer.invalidate()` + `LakeStore.setUser(null)` (per-user store; no cross-account
+  leak).
+- **`mylakes/LakeScorer.kt`** — `request()` is now two-phase: Phase 1 fetches + publishes
+  the engine **score** alone; Phase 2 enriches the same card with level/generation/
+  authority from the snapshot. A snapshot failure (e.g. a black-holing Open-Meteo host)
+  leaves the score-only card standing instead of no card. Removed the old `buildCard`.
+
+Score still flows through `EngineApiClient.conditions()` → `ConditionsMemo`, so My Lakes
+agrees with every other surface (depends on **0008**).
+
+**Verification:** `./gradlew compileDebugKotlin` clean (exit 0). **On-device pending**
+→ **`implemented_unverified`**. To verify: cold-launch → open My Lakes already scored;
+with the snapshot host unreachable confirm the score still shows; second-account sign-in
+shows no prior account's lakes.
+
+**Deployment impact:** none. **RTDB impact:** none. Not merged — awaiting review.
