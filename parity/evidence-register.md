@@ -24,6 +24,8 @@ maintained spec/audit · **tertiary** = older plan/roadmap or inference.
 | `docs/handoff/*` (to 2026-08-06), `docs/decisions/0001-runtime-dev-prod-database.md` | handoffs/ADR | Recent iOS changes, dev/prod DB decision | secondary |
 | `README.md` | root doc | Sector_Engine (Cloud Run) conditions service | secondary |
 | root `AGENTS.md`, `CLAUDE.md` | working docs | **Stale** — understate the app; use with caution | tertiary |
+| `Sector/SwiftData/Models/EngineAPIClient.swift` (`ConditionsMemo`), `MyLakes.swift`, `UI/Map/Details.swift` | source (read 2026-09-07) | Cross-surface score consistency: shared in-memory per-coordinate cache (10-min TTL) + matching scorer/pin TTLs (iOS #199/#200). Client-only, no RTDB | primary |
+| `Sector/SwiftData/Models/FavoriteConditions.swift` | source (read 2026-09-07) | Favorite conditions (iOS #195): `UserDefaults`-backed per-device pins, single `ConditionReadout` value source. No RTDB | primary |
 
 ## Android (`Android_Sector`, local `Android/SectorAndroid`)
 

@@ -6,7 +6,9 @@
 - **Source-of-truth responsibility:** **Main source of truth for current product
   behavior and current Realtime Database usage.** Other platforms build toward iOS
   behavior (as scoped by orchestrator contracts).
-- **Current status:** Existing active application, **v4.0.8 (build 25)**, bundle `io.sector.co`.
+- **Current status:** Existing active application, **v4.1.0 (build 28)** on App Store
+  Connect (bundle `io.sector.co`). Post-2026-08-23 conditions/UI work (PRs #191–#204)
+  is captured in [`../parity/ios-delta-since-2026-08-23.md`](../parity/ios-delta-since-2026-08-23.md).
 
 ## Technology (confirmed 2026-08-22)
 

@@ -3,7 +3,10 @@
 Cross-repository tasks and their status. Most rows are `proposed` and require Michael to
 approve scope before implementation; **0001 is done** — implemented (PR #13) and verified by 4 green instrumented tests (PR #14/#15). The `0001–0005` tasks were filed from the
 **2026-08-23 Android parity audit** ([`../parity/android-parity.md`](../parity/android-parity.md));
-each has its own file.
+each has its own file. Tasks **0008–0011** are proposed from the
+[iOS delta since 2026-08-23](../parity/ios-delta-since-2026-08-23.md) (iOS PRs
+#191–#204) — all client-only with **zero RTDB impact**; they stay rows here until
+Michael approves scope and they graduate to `approved` + their own files.
 
 | Task | Parent feature | Authorized repos | Platform | Type | Status | Notes |
 |---|---|---|---|---|---|---|
@@ -14,6 +17,10 @@ each has its own file.
 | [0005](0005-android-analytics-instrumentation-parity.md) Android analytics parity | analytics (cross-cutting) | Android_Sector | android | feature | proposed | Redzone/tournament/guide/store events iOS logs are logged nowhere on Android — breaks cross-platform funnels. |
 | [0006](0006-android-roster-order-and-host-add.md) Android roster order + host add-team | tournament-registration | Android_Sector | android | feature | **in_review** — PR #16 | Parity with **iOS PR #191**: number roster by registration order + sort filter; host adds a team for people without a smart device. **Unique id per host add** — the deterministic `{tid}_{uid}` id would overwrite. |
 | [0007](0007-web-roster-order-and-host-add.md) Web roster order + host add-team | tournament-registration | Web_Sector | web | feature | **in_review** — main a3e08d6 | Parity with **iOS PR #191** (owner surface). Same two features; same unique-id caveat. |
+| 0008 Android cross-surface score consistency | conditions-engine | Android_Sector | android | bugfix | proposed | Parity with **iOS #199/#200/#194**. One shared in-memory per-coordinate cache (10-min TTL, coord-rounded key) that every tonight-score surface reads through (dashboard, score detail, map pin, My Lakes, Where-to-go) so they can't disagree within the window — the "Cory bug". **Client-only, zero RTDB** (engine/scores already shared). See [delta](../parity/ios-delta-since-2026-08-23.md). |
+| 0009 Android My Lakes preload at launch | my-lakes | Android_Sector | android | feature/perf | proposed | Parity with **iOS #196**. Warm saved-lake scores at app launch, decoupled from the slow conditions snapshot (score from a direct engine `/conditions` call; snapshot enriches after) so My Lakes opens populated. Client-only, zero RTDB. |
+| 0010 Android favorite conditions | conditions (dashboard) | Android_Sector | android | feature | proposed | Parity with **iOS #195** (phone). Star a metric on its detail sheet → pin it under the home Tonight "Conditions" section, star order, per-device local preference (no RTDB/cloud). iPad tile grid (**#198**) is **excluded** on Android. |
+| 0011 Android conditions detail polish | weather-metric-detail / dashboard | Android_Sector | android | feature/bugfix | proposed | Parity with **iOS #193/#194/#195**: wind chart renders sustained+gust flush with drag-to-scrub showing both values at a "now" boundary; fog-aware night banner; honest paywall CTA; water-temp chart honors range tabs; graph/copy/color fixes. Client-only, zero RTDB. |
 | _(candidate)_ Promote tournament-browsing to a canonical contract | tournament-browsing | Orchestrator only | multi (doc) | contract authoring | proposed | Recommended pilot. Inspect current iOS, reconcile vs Android/Web, fill platform matrix, Michael approves. |
 | _(candidate)_ Update Android no-name fallback to "Member" | (terminology rule) | Android_Sector | android | bugfix | proposed | Conflict C3 — small mechanical fix once "Member" is confirmed final. |
 | _(candidate)_ Confirm Android trips remain local-only | trips / cloud-sync | Android_Sector (read-only) | android | verification | proposed | Conflict C2 — 2026-08-23 audit found **no** trip cloud I/O in current Android source; on-device confirm only. |

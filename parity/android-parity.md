@@ -1,5 +1,12 @@
 # Android Parity Assessment
 
+> **Newer iOS work (since this audit):** iOS shipped PRs #191–#204 after
+> 2026-08-23 — cross-surface score consistency, favorite conditions, My Lakes
+> launch preload, wind-chart + fog-banner + paywall polish. Those are tracked
+> separately in [`ios-delta-since-2026-08-23.md`](ios-delta-since-2026-08-23.md)
+> (zero RTDB impact; proposed Android tasks 0008–0011). Read it before planning an
+> Android catch-up push — the rows below predate that work.
+
 **Date:** 2026-08-23 · **Method:** 9-agent parallel workflow audit — one read-only auditor per feature group, each cross-checking **iOS as source of truth** against **current** Android source (`app/src/main/java/io/sector/co/`), deliberately not trusting the prior 2026-08-22 snapshot. **No build or on-device verification was run** — nothing here is `verified_implemented`; read-only evidence maps to `implemented_unverified` / `partial` / `missing` / `verification_pending`.
 
 ## Executive summary

@@ -47,6 +47,14 @@ lake-conditions-alerts _(iOS-only spec)_.
 bank-spots, boat-tracks, my-lakes, dam-generation (Android). Record scope explicitly if
 these are ever promoted.
 
+**New iOS candidates (post-2026-08-23, from [the delta](../parity/ios-delta-since-2026-08-23.md), all `not_evaluated`):**
+
+| Candidate feature | iOS source | iOS | Android | Web | Evidence note (not a commitment) |
+|---|---|---|---|---|---|
+| Cross-surface score consistency | `EngineAPIClient.swift` (`ConditionsMemo`), `MyLakes.swift`, `UI/Map/Details.swift` | NE | NE | NE | iOS #199/#200: shared in-memory per-coordinate cache (10-min TTL) so every tonight-score surface agrees. Client-only, zero RTDB. Android has the same multi-surface divergence risk → proposed task 0008. |
+| Favorite conditions | `FavoriteConditions.swift`, `MetricSheets.swift`, `DashboardShelves.swift` | NE | NE | NE | iOS #195: star a metric → pin under home Tonight "Conditions". Per-device local pref (no RTDB). iPad tile grid (#198) iOS-only. → task 0010. |
+| My Lakes launch preload | `TabBar.swift` / `RootView.swift` (`LakeScorer.warmAll`), `MyLakes.swift` | NE | NE | NE | iOS #196: warm saved-lake scores at launch, decoupled from the slow snapshot. Client-only. → task 0009. |
+
 ## Promotion checklist (per feature)
 
 1. Inspect current iOS behavior for the feature.
