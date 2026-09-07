@@ -1,11 +1,26 @@
 # Android Parity Assessment
 
-> **Newer iOS work (since this audit):** iOS shipped PRs #191–#204 after
-> 2026-08-23 — cross-surface score consistency, favorite conditions, My Lakes
-> launch preload, wind-chart + fog-banner + paywall polish. Those are tracked
-> separately in [`ios-delta-since-2026-08-23.md`](ios-delta-since-2026-08-23.md)
-> (zero RTDB impact; proposed Android tasks 0008–0011). Read it before planning an
-> Android catch-up push — the rows below predate that work.
+> **Post-audit status (updated 2026-09-07).** iOS shipped PRs #191–#204 after this
+> audit; the catch-up is tracked in
+> [`ios-delta-since-2026-08-23.md`](ios-delta-since-2026-08-23.md) (zero RTDB impact).
+> **All four approved catch-up tasks (0008–0011) are implemented and in review** —
+> each compiles (`compileDebugKotlin`), is client-only, and is `implemented_unverified`
+> pending an on-device pass:
+>
+> - **0008 — cross-surface score consistency** (the "Cory bug"): shared in-memory
+>   `ConditionsMemo` (10-min TTL) in `EngineApiClient.conditions()` that every score
+>   surface funnels through → PR [Android_Sector#20](https://github.com/mgcather07/Android_Sector/pull/20).
+> - **0009 — My Lakes launch preload**: `warmAll` at launch from `MainActivity`;
+>   `LakeScorer` scores decoupled from the slow snapshot → PR [#21](https://github.com/mgcather07/Android_Sector/pull/21) (stacked on #20).
+> - **0010 — favorite conditions**: star-driven `FavoriteConditionsStore` + pinned strip
+>   on the Tonight tab → PR [#22](https://github.com/mgcather07/Android_Sector/pull/22).
+> - **0011 — conditions polish**: mostly already at parity (wind chart flush + now-boundary
+>   + scrub-both; paywall CTA via PR #19; fog insight card); one fix — score-curve "Good"
+>   reference 60 → 65 → PR [#23](https://github.com/mgcather07/Android_Sector/pull/23) (stacked on #22).
+>
+> Merge order for the stacks: #20 → #21, #22 → #23. **The dated rows below are the
+> 2026-08-23 snapshot and are left unchanged as historical evidence** — see the delta and
+> the task files (`tasks/0008`–`0011`) for current state.
 
 **Date:** 2026-08-23 · **Method:** 9-agent parallel workflow audit — one read-only auditor per feature group, each cross-checking **iOS as source of truth** against **current** Android source (`app/src/main/java/io/sector/co/`), deliberately not trusting the prior 2026-08-22 snapshot. **No build or on-device verification was run** — nothing here is `verified_implemented`; read-only evidence maps to `implemented_unverified` / `partial` / `missing` / `verification_pending`.
 
