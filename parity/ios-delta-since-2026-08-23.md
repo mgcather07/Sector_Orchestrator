@@ -42,7 +42,7 @@ branding; Android may add its own on its own splash).
 
 | iOS PR(s) | Change | Android status | RTDB | Recommended Android scope | Task |
 |---|---|---|---|---|---|
-| **#199, #200, #194** | **Cross-surface score consistency** — shared in-memory per-coordinate cache (`ConditionsMemo`, 10-min TTL) that every tonight-score surface reads through; matching TTLs on `LakeScorer` (My Lakes) and the redzone map-pin model so all surfaces for one coordinate return the same cached number within the window. Fixes home/score/map-pin disagreement and 5–10-min cross-device drift. | missing (divergence risk present) | none | **required** (client-only) | **0008** |
+| **#199, #200, #194** | **Cross-surface score consistency** — shared in-memory per-coordinate cache (`ConditionsMemo`, 10-min TTL) that every tonight-score surface reads through; matching TTLs on `LakeScorer` (My Lakes) and the redzone map-pin model so all surfaces for one coordinate return the same cached number within the window. Fixes home/score/map-pin disagreement and 5–10-min cross-device drift. | **done on Android — PR [#20](https://github.com/mgcather07/Android_Sector/pull/20), in review** | none | **required** (client-only) | **0008** |
 | **#196** | **My Lakes preload at launch** — saved-lake scores warm at app launch (`LakeScorer.warmAll()` from the root view), **decoupled from the slow conditions snapshot** (score comes from a direct engine `/conditions` call; the snapshot enriches after). My Lakes opens already populated instead of fetching on first tap. | partial (My Lakes present; no launch preload; scoring may block on snapshot) | none | **required** (client-only) | **0009** |
 | **#195, #198 (phone part)** | **Favorite conditions** — a star on each metric's detail sheet pins that metric under the home Tonight "Conditions" section, in star order. Per-device UI preference (local only), survives launches, drops unknown metrics on load. Single shared value source (`ConditionReadout`) so a metric can't show two numbers on two screens. | missing | none (local `UserDefaults`) | **required** (phone); iPad tile grid **excluded** | **0010** |
 | **#195** | **Wind detail chart rework** — sustained + gust rendered flush (no black gaps between the two smoothed curves); drag-to-scrub readout shows **both** sustained and gust; the scrub dot sits on the last *observed* point and the dashed forecast run starts at a synthetic "now" boundary so solid=observed / dashed=forecast is honest. | partial (Android wind chart exists; scrub/both-series/now-boundary unverified) | none | **adapted** (match behavior; Compose Canvas, not Swift Charts) | 0011 |
@@ -113,3 +113,9 @@ This is client-only; **do not** change the engine or any RTDB path.
 - **2026-09-07** — Compiled from iOS PRs #191–#204 on Michael's request to "catch
   Android up to iOS." Recorded as a doc-only delta; proposed Android tasks 0008–0011
   (client-only, zero RTDB). Awaiting Michael's scope approval before any Android code.
+- **2026-09-07** — Michael approved 0008–0011. **0008 implemented** on Android
+  (`ConditionsMemo` in `EngineApiClient`; `LakeScorer` TTL; pull-to-refresh
+  invalidation) → PR [Android_Sector#20](https://github.com/mgcather07/Android_Sector/pull/20),
+  compiles, in review (`implemented_unverified`). Inspection also confirmed Android
+  scores off the shared engine (platform doc's "divergent" note is stale) and
+  `EngineApiClient.batch()` is dead. 0009–0011 remain approved, not started.
