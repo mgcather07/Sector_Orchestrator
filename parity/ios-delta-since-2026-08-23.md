@@ -136,5 +136,9 @@ This is client-only; **do not** change the engine or any RTDB path.
   fog awareness as an insight card; no water-temp range tabs to fix). The one applicable
   change — the hourly score-curve "Good" reference 60 → 65 (canonical band scheme) — is
   PR [Android_Sector#23](https://github.com/mgcather07/Android_Sector/pull/23), stacked on
-  #22, compiles, in review. **All four approved catch-up tasks (0008–0011) are now
-  in-review PRs #20–#23.**
+  #22, compiles, in review.
+- **2026-09-07 — all merged to `Michael-Master`.** 0008 (#20), 0009 (#21), 0010 (#22),
+  0011 (#25 — rebased replacement for #23, which auto-closed when its stacked base branch
+  was deleted), plus the separately-found **0012** app-version stamp (#24). All squash-
+  merged, client-only; each stays **`implemented_unverified`** pending on-device checks.
+  Stacked-merge lesson recorded in the 0009/0011 task files.

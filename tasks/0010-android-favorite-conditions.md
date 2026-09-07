@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/SwiftData/Models/FavoriteConditions.swift, MetricSheets.swift, DashboardShelves.swift — iOS #195
-status: in_review
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -87,4 +87,7 @@ disagree with its detail row.
 opens; relaunch → persists; unstar → gone; Premium multi-star order + values match the
 detail rows.
 
-**Deployment impact:** none. **RTDB impact:** none. Not merged — awaiting review.
+**Deployment impact:** none. **RTDB impact:** none.
+
+**2026-09-07 — merged** to `Michael-Master` (squash `0e557af`, PR #22). `FavoriteConditions.kt`
+present on trunk. Assessment stays **`implemented_unverified`** until the on-device check.

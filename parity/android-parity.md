@@ -3,9 +3,9 @@
 > **Post-audit status (updated 2026-09-07).** iOS shipped PRs #191–#204 after this
 > audit; the catch-up is tracked in
 > [`ios-delta-since-2026-08-23.md`](ios-delta-since-2026-08-23.md) (zero RTDB impact).
-> **All four approved catch-up tasks (0008–0011) are implemented and in review** —
-> each compiles (`compileDebugKotlin`), is client-only, and is `implemented_unverified`
-> pending an on-device pass:
+> **All four catch-up tasks (0008–0011), plus a separately-found 0012, are MERGED to
+> `Michael-Master`** (2026-09-07) — each squash-merged, client-only, and
+> `implemented_unverified` pending an on-device pass:
 >
 > - **0008 — cross-surface score consistency** (the "Cory bug"): shared in-memory
 >   `ConditionsMemo` (10-min TTL) in `EngineApiClient.conditions()` that every score
@@ -16,11 +16,15 @@
 >   on the Tonight tab → PR [#22](https://github.com/mgcather07/Android_Sector/pull/22).
 > - **0011 — conditions polish**: mostly already at parity (wind chart flush + now-boundary
 >   + scrub-both; paywall CTA via PR #19; fog insight card); one fix — score-curve "Good"
->   reference 60 → 65 → PR [#23](https://github.com/mgcather07/Android_Sector/pull/23) (stacked on #22).
+>   reference 60 → 65 → PR [#25](https://github.com/mgcather07/Android_Sector/pull/25) (rebased
+>   replacement for the auto-closed #23).
+> - **0012 — app-version stamp**: Android now writes `users/{uid}/appVersion` + `appBuild`
+>   on sign-in so Android accounts show their build on the iOS master Members/Subscribers
+>   screen → PR [#24](https://github.com/mgcather07/Android_Sector/pull/24).
 >
-> Merge order for the stacks: #20 → #21, #22 → #23. **The dated rows below are the
-> 2026-08-23 snapshot and are left unchanged as historical evidence** — see the delta and
-> the task files (`tasks/0008`–`0011`) for current state.
+> Merged in order #20 → #21 → #22 → #25 → #24. **The dated rows below are the 2026-08-23
+> snapshot and are left unchanged as historical evidence** — see the delta and the task
+> files (`tasks/0008`–`0012`) for current state.
 
 **Date:** 2026-08-23 · **Method:** 9-agent parallel workflow audit — one read-only auditor per feature group, each cross-checking **iOS as source of truth** against **current** Android source (`app/src/main/java/io/sector/co/`), deliberately not trusting the prior 2026-08-22 snapshot. **No build or on-device verification was run** — nothing here is `verified_implemented`; read-only evidence maps to `implemented_unverified` / `partial` / `missing` / `verification_pending`.
 

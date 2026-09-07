@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/UI/UserAuth/CurrentUser.swift (writes users/{uid}/appVersion + appBuild); Sector/Utils/SubscribersView.swift (reads them)
-status: in_review
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -62,4 +62,7 @@ iOS master Members/Subscribers screen, confirm the Android row shows `v<version>
 One block in `MainActivity` next to the existing `platform` write, reading the build via
 `PackageManager` (this module doesn't generate `BuildConfig`), wrapped in `runCatching`
 on the login path. Compiles clean (exit 0). Client-only; no schema/RTDB-rule/deployment
-change. `implemented_unverified` pending the on-device Members-screen check. Not merged.
+change. `implemented_unverified` pending the on-device Members-screen check.
+
+**2026-09-07 — merged** to `Michael-Master` (squash `6325c07`, PR #24). Trunk `MainActivity`
+verified to write `appVersion` + `appBuild`.

@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/SwiftData/Models/MetricSheets.swift, DashboardShelves.swift — iOS #193/#194/#195
-status: in_review
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -91,4 +91,9 @@ Already present / N-A (no change):
 **`implemented_unverified`**: confirm the hourly score curve's dashed "Good" line sits at
 65.
 
-**Deployment impact:** none. **RTDB impact:** none. Not merged — awaiting review.
+**Deployment impact:** none. **RTDB impact:** none.
+
+**2026-09-07 — merged** to `Michael-Master` (squash `3741878`, **PR #25** — the rebased
+replacement for #23, which auto-closed when its stacked base branch was deleted). Trunk
+score curve verified at `py(65)`. Assessment stays **`implemented_unverified`** until the
+on-device check.
