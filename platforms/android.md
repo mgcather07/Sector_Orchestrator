@@ -6,7 +6,13 @@
 - **Source-of-truth responsibility:** Source of truth for the **current Android
   implementation only** — not for shared product intent.
 - **Current status:** Existing and **substantial** — 354 Kotlin files, ~82,850 LOC, 1
-  `TODO`, signed for Play release. **v4.0.6 (build 45).** An active parity program.
+  `TODO`, signed for Play release. **v4.0.6 (build 45).** An active parity program. The
+  post-2026-08-23 iOS catch-up (orchestrator tasks **0008–0012**) is **merged to
+  `Michael-Master`** as of 2026-09-07 — cross-surface score consistency, My Lakes launch
+  preload, favorite conditions, the score-curve band fix, and the app-version stamp on the
+  user record. All client-only (zero RTDB), `implemented_unverified` pending an on-device
+  pass. See [`../parity/ios-delta-since-2026-08-23.md`](../parity/ios-delta-since-2026-08-23.md)
+  and `tasks/0008`–`0012`.
 
 ## Technology (confirmed 2026-08-22)
 
@@ -42,8 +48,12 @@
 - **Ships no backend contract:** `database.rules.json`, `functions/`, `.firebaserc`,
   `firebase.json` are absent — Android **mirrors iOS RTDB field names exactly** and must
   never rename a synced field.
-- Conditions scoring is a deliberately simplified reimplementation; scores may diverge
-  from iOS/Sector_Engine on identical inputs (documented divergence).
+- Conditions scoring runs off the **shared Cloud Run Sector_Engine** — the same service
+  iOS uses (`EngineApiClient.conditions()`), so scores match iOS by construction (the old
+  "simplified reimplementation / may diverge" note is stale; corrected by the 2026-08-23
+  audit and confirmed while building task 0008). Cross-surface consistency within a device
+  is now enforced by an in-memory `ConditionsMemo` (10-min TTL) all score surfaces funnel
+  through (task 0008, merged).
 
 ## Build & test (from docs; not run)
 
@@ -72,6 +82,8 @@
 
 - Was the tournament-browse state/sort/50-mi filter wiring completed, or still dead code? (pilot)
 - Background geofencing: enable + verify, or accept foreground-only? (C1)
-- Adopt the shared Sector_Engine conditions numbers, or accept divergence?
+- ~~Adopt the shared Sector_Engine conditions numbers, or accept divergence?~~
+  **Resolved 2026-09-07:** already on the shared engine; cross-surface consistency enforced
+  by `ConditionsMemo` (task 0008, merged).
 - Are Firebase Analytics events (present on iOS spec) required on Android?
 - Update no-name fallback to "Member" (C3).
