@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/SwiftData/Models/MetricSheets.swift, DashboardShelves.swift — iOS #193/#194/#195
-status: approved
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -60,4 +60,35 @@ open the paywall, and eyeball band colors against iOS.
 
 ## Completion record
 
-_(empty — approved, not yet implemented)_
+**2026-09-07 — implemented, in review.** Branch `feat/0011-conditions-band-scheme`
+**stacked on 0010** → **PR [Android_Sector#23](https://github.com/mgcather07/Android_Sector/pull/23)**
+(base is the 0010 branch; retarget to `Michael-Master` after #22 merges). **One line +
+comment**, client-only.
+
+**Key finding — most of 0011 was already at parity on Android** (verified in source, not
+assumed). Only one applicable change remained:
+
+- **Band scheme (the one fix):** the hourly score curve
+  (`ConditionsDetailScreen.ScoreCurve`) drew its "Good" dashed reference at **60** (the
+  retired 80/60/40 scheme). Moved to **65** to match the canonical Prime 80 / Good 65 /
+  Fair 50 / Poor. `bandColor` is engine-rating-driven, so no other band hardcode existed.
+
+Already present / N-A (no change):
+- **Wind chart (#195):** `WeatherMetricDetail.TrendChart` already renders sustained +
+  gust **flush** (gust is a full area *behind* the sustained line — no black gap by
+  construction), injects a synthetic `now` sample so the solid past meets the dashed
+  forecast at the Now marker, and the scrub readout already shows **both** sustained and
+  gust. Ringed grabbable handle present. → already done.
+- **Honest paywall CTA (#193):** already landed on Android via **merged PR #19**
+  ("no free trial"). → already done.
+- **Fog-aware night banner (#193):** Android has **no separate night banner**; fog
+  awareness is already the "Fog likely tonight" insight card in the humidity detail. →
+  N-A (no surface to make fog-aware without inventing one).
+- **Water-temp range tabs (#194):** the water-temp sheet is a quick sheet with no
+  3wk/3mo/Season tabs → the iOS tabs-not-filtering fix is **N-A**.
+
+**Verification:** `./gradlew compileDebugKotlin` clean (exit 0). **On-device pending** →
+**`implemented_unverified`**: confirm the hourly score curve's dashed "Good" line sits at
+65.
+
+**Deployment impact:** none. **RTDB impact:** none. Not merged — awaiting review.
