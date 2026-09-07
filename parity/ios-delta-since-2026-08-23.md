@@ -137,6 +137,16 @@ This is client-only; **do not** change the engine or any RTDB path.
   change — the hourly score-curve "Good" reference 60 → 65 (canonical band scheme) — is
   PR [Android_Sector#23](https://github.com/mgcather07/Android_Sector/pull/23), stacked on
   #22, compiles, in review.
+- **2026-09-07 — autonomous Android catch-up push** (Michael: "get Android caught up… I
+  only use iOS for master-only commands", away). Beyond 0008–0012: **merged** 0005 analytics
+  (#27), 0002 background geofencing (#28), 0012 app-version (#24), a guide-reviews 3-preview
+  (#30), plus the version bump to 4.1.0 (#26). **Held, not merged** — 0013 Lake Conditions
+  Alerts (#29, fires real pushes → device/staging verify). **Filed with dispositions**: 0015
+  engine-DTO render fields, 0016 animated gauge, 0017 PDF search (polish); **0018**
+  PublicUserMirror shape and **0019** Google Sign-In→Credential Manager are FLAGGED (shared
+  RTDB node / auth — not blind-merged); admin master-tools panels marked **iOS-only** (Michael
+  uses iOS for master); address-autocomplete→Places deferred (needs API key). All merged work
+  is client-only, zero RTDB, `implemented_unverified` pending on-device.
 - **2026-09-07 — all merged to `Michael-Master`.** 0008 (#20), 0009 (#21), 0010 (#22),
   0011 (#25 — rebased replacement for #23, which auto-closed when its stacked base branch
   was deleted), plus the separately-found **0012** app-version stamp (#24). All squash-
