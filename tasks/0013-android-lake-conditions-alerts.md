@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/SwiftData/Models/LakeAlerts/* (LakeAlertsScheduler, LakeAlertsEngine, LakeDigestEngine, LakeAlertConfig); Sector/UI/Settings/Settings.swift; Sector/UI/Tab Bar/TabBar.swift (deep-link)
-status: proposed
+status: in_review
 deployment_authority: none
 review_requirement: Michael approves scope, then the branch/PR
 ```
@@ -63,5 +63,4 @@ respects quiet hours, and deep-links. Read-only/spec pass ⇒ `documented_only` 
 
 ## Completion record
 
-_(empty — proposed; awaiting Michael's build-vs-iOS-only scope decision. Filed 2026-09-07
-from the cross-platform parity audit.)_
+**2026-09-07 — implemented, HELD (not merged).** PR [#29](https://github.com/mgcather07/Android_Sector/pull/29). Full Android port in `io.sector.co.alerts`: `LakeAlertModels`/`LakeAlertConfig`, pure `LakeAlertsEngine` (decide/trigger/compose 1:1), `LakeDigestEngine`, per-uid `LakeAlertStores` (SharedPreferences/org.json), `LakeAlertScorer` (shared engine), `LakeConditionsWorker` + `LakeAlertsScheduler` (WorkManager, next-day chaining + on-open fallback), `CHANNEL_LAKE_ALERTS` deep-linking to My Lakes, a Settings toggle (+ Premium weekly digest), launch/login wiring, WorkManager dep. Compiles clean. **NOT merged — fires real nightly push notifications; needs device/staging verification** before enabling for users. Follow-up: the per-lake trigger sheet UI (iOS `LakeAlertLakeSheet`) — v1 uses all-on defaults (matches iOS never-customized). Scope decision (build vs iOS-only) resolved to BUILD by 'get Android caught up'. Client-only, no RTDB.

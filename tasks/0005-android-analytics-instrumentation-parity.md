@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS analytics events across redzone / tournament / guide / store specs
-status: proposed
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 severity: MEDIUM
@@ -58,4 +58,4 @@ Work in `Android_Sector`:
 
 ## Completion record
 
-_(empty until done)_
+**2026-09-07 — merged**, PR [#27](https://github.com/mgcather07/Android_Sector/pull/27). New `analytics/SectorAnalytics.kt` wrapper (app-context singleton) mirroring all 14 iOS events 1:1 (same names + param keys); instrumented store (profile/website/phone/email/review), redzone (viewed/entry/exit), guide (profile/phone/email/review), tournament (rsvp/comment). Compiles clean. Client-only, no RTDB. Full analytics parity — subset decision moot (did the full set).

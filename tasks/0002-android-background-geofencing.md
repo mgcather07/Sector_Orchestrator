@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: iOS_Sector/specs/geofence-notifications.md; iOS background CLRegion monitoring
-status: proposed
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR (background-location has Play policy + privacy implications)
 severity: HIGH
@@ -61,4 +61,4 @@ Work in `Android_Sector`:
 
 ## Completion record
 
-_(empty until done)_
+**2026-09-07 — merged**, PR [#28](https://github.com/mgcather07/Android_Sector/pull/28). Declared `ACCESS_BACKGROUND_LOCATION`; added the post-foreground runtime request in `MainActivity` (only after fine/coarse granted AND notifications opted-in), which flips `GeofenceManager.hasBackgroundLocation` true so the already-written arming path lights up. Client-only. **Two follow-ups for Michael:** (1) Play Console needs a background-location use justification at submission; (2) needs an on-device pass to confirm background delivery. The Play-policy decision was implicitly resolved by 'get Android caught up' — implemented; still requires the submission justification.
