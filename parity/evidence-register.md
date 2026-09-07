@@ -31,7 +31,7 @@ maintained spec/audit · **tertiary** = older plan/roadmap or inference.
 
 | Evidence path | Type | Supports | Reliability |
 |---|---|---|---|
-| `app/build.gradle.kts` | build config | Kotlin/Compose, minSdk 31/target 36, deps, Play Billing, v4.0.6(45) | primary |
+| `app/build.gradle.kts` | build config | Kotlin/Compose, minSdk 31/target 36, deps, Play Billing, v4.1.0(46) | primary |
 | `app/src/main/AndroidManifest.xml` | manifest | **No `ACCESS_BACKGROUND_LOCATION`** → geofence dormant | primary |
 | `app/src/main/java/io/sector/co/` (354 files) | source | Feature presence/depth; RTDB via `DatabaseProvider` | primary |
 | `notifications/GeofenceManager.kt`, `ZoneManager.kt` | geofencing | Background code present but gated off by manifest | primary |

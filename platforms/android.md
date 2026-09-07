@@ -6,7 +6,9 @@
 - **Source-of-truth responsibility:** Source of truth for the **current Android
   implementation only** — not for shared product intent.
 - **Current status:** Existing and **substantial** — 354 Kotlin files, ~82,850 LOC, 1
-  `TODO`, signed for Play release. **v4.0.6 (build 45).** An active parity program. The
+  `TODO`, signed for Play release. **v4.1.0 (versionCode 46)** — bumped 2026-09-07 to
+  match iOS v4.1.0 (versionCode is Android's own monotonic sequence). An active parity
+  program. The
   post-2026-08-23 iOS catch-up (orchestrator tasks **0008–0012**) is **merged to
   `Michael-Master`** as of 2026-09-07 — cross-surface score consistency, My Lakes launch
   preload, favorite conditions, the score-curve band fix, and the app-version stamp on the
