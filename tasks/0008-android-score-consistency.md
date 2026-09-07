@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/SwiftData/Models/EngineAPIClient.swift (ConditionsMemo), MyLakes.swift, UI/Map/Details.swift — iOS #199/#200/#194
-status: in_review
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -99,4 +99,8 @@ Findings worth recording:
 same lake/coordinate on ≥2 surfaces within 10 min (expect the same number), repeat
 across two devices, and confirm pull-to-refresh re-fetches.
 
-**Deployment impact:** none. **RTDB impact:** none. Not merged — awaiting Michael's review.
+**Deployment impact:** none. **RTDB impact:** none.
+
+**2026-09-07 — merged** to `Michael-Master` (squash `8efb2a5`, PR #20). Verified on trunk:
+`EngineApiClient` carries `ConditionsMemo` once and `LakeScorer` has the TTL guard.
+Assessment stays **`implemented_unverified`** until the two-device on-device check.

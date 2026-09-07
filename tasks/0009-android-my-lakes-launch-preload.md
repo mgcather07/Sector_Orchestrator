@@ -5,7 +5,7 @@ authorized_repositories:
   - Android_Sector
 platform: android
 ios_behavior_reference: Sector/UI/Tab Bar/TabBar.swift + RootView.swift (LakeScorer.warmAll), MyLakes.swift — iOS #196
-status: in_review
+status: done
 deployment_authority: none
 review_requirement: Michael approves the branch/PR
 ```
@@ -80,4 +80,13 @@ agrees with every other surface (depends on **0008**).
 with the snapshot host unreachable confirm the score still shows; second-account sign-in
 shows no prior account's lakes.
 
-**Deployment impact:** none. **RTDB impact:** none. Not merged — awaiting review.
+**Deployment impact:** none. **RTDB impact:** none.
+
+**2026-09-07 — merged** to `Michael-Master` (squash `e659d2c`, PR #21) after #20. Because
+#20 landed as a squash (new SHA), the stacked #21 did not auto-retarget (its base branch
+was kept) and showed conflicts once retargeted; fixed by
+`git rebase --onto origin/Michael-Master feat/0008… feat/0009…` to drop the duplicate
+0008 commit, then force-push. Trunk `LakeScorer` verified to carry both 0008's TTL guard
+and 0009's two-phase logic (`buildCard` removed). **Future stacked merges: merge the base
+with `--delete-branch` so the child auto-retargets, or rebase-onto as here.** Assessment
+stays **`implemented_unverified`** until the on-device check.
