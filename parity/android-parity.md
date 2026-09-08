@@ -25,6 +25,29 @@
 > Merged in order #20 → #21 → #22 → #25 → #24. **The dated rows below are the 2026-08-23
 > snapshot and are left unchanged as historical evidence** — see the delta and the task
 > files (`tasks/0008`–`0012`) for current state.
+>
+> **UI-fidelity sweep merged (2026-09-07) — PRs #31–#39.** A separate screen-by-screen
+> *visual* parity pass (not functional catch-up) closed several polish gaps the rows below
+> still list as open, all verified on the Pixel 9 Pro:
+>
+> - **Group F dashboard** — the static full-circle gauge / band drift is resolved: one shared
+>   `BandPalette.kt` (Prime 80 / Good 65 / Fair 50 / Poor) now drives every score surface, and
+>   the static "checking conditions" label is replaced by the 8-phrase cycling label (iOS
+>   `CheckingConditionsLabel`).
+> - **Group D guide-profile #11 & Store profile** — name/rating/location moved off the hero
+>   overlay into a body title header with the socials row (matches spec 2026-07-17).
+> - **Group H profile** — self-profile restructured: the Profile tab is a grouped list with a
+>   compact card that pushes a rich `ProfileDetailScreen`, matching iOS `ProfileView` →
+>   `ProfileDetailView` (resolves "ProfileDetail layout parity not visually verified").
+> - Also: browse chip capsules + action-pill hues (Group E), Activity bell/sheet parity
+>   (Group H notifications), trips/feed/teams copy + empty-state fixes.
+>
+> **Deliberately left idiomatic / not done:** records & submit sheet↔screen conversions
+> (Compose can't hand a record object to a pushed route; IME risk in bottom sheets); PR #29
+> Lake Alerts (needs device/staging verification); audit gaps needing RTDB/auth work — Apple
+> Sign-In (#3), Google→Credential Manager (#6), PublicUserMirror shape (#7), boat-tracks owner
+> scoping (#1), analytics instrumentation (#5) — untouched, flagged risky, await Michael's
+> sign-off. Catalog: Android repo `docs/audits/2026-09-07-ios-android-ui-parity.md`.
 
 **Date:** 2026-08-23 · **Method:** 9-agent parallel workflow audit — one read-only auditor per feature group, each cross-checking **iOS as source of truth** against **current** Android source (`app/src/main/java/io/sector/co/`), deliberately not trusting the prior 2026-08-22 snapshot. **No build or on-device verification was run** — nothing here is `verified_implemented`; read-only evidence maps to `implemented_unverified` / `partial` / `missing` / `verification_pending`.
 

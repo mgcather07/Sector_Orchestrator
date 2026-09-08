@@ -15,6 +15,22 @@
   user record. All client-only (zero RTDB), `implemented_unverified` pending an on-device
   pass. See [`../parity/ios-delta-since-2026-08-23.md`](../parity/ios-delta-since-2026-08-23.md)
   and `tasks/0008`–`0012`.
+- **UI-fidelity sweep (2026-09-07).** A dedicated screen-by-screen iOS-vs-Android *visual*
+  parity pass (distinct from the functional catch-up above) merged as PRs
+  **[#31–#39](https://github.com/mgcather07/Android_Sector/pulls?q=is%3Apr+is%3Amerged)**:
+  a single shared band ramp (`conditions/BandPalette.kt`) routed through every tonight-score
+  surface (Prime/Good/Fair/Poor · green/teal/light-blue/gray); the **cycling "checking
+  conditions" label** (8 rotating phrases, matching iOS `CheckingConditionsLabel`, replacing
+  the static one Michael flagged); the conditions **"Shape of the night"** chart + legend;
+  guide/store hero → body-title header with socials/rating/location moved below the image
+  (closes audit gap **#11**); browse **chip capsules** + iOS action-pill hues; the Activity
+  **bell + Done-header sheet** (bell → `Icons.Outlined.Notifications`, badge counts to 99);
+  and the **self-profile restructure** — the Profile tab is now a grouped settings list
+  (compact card → pushed `ProfileDetailScreen`), matching iOS `ProfileView` → `ProfileDetailView`
+  (closes the Group H profile row's "ProfileDetail layout parity not visually verified"). All
+  verified on the **Pixel 9 Pro** emulator this session (build + install + flow), client-only,
+  zero RTDB. Catalog: Android repo `docs/audits/2026-09-07-ios-android-ui-parity.md`. The
+  medium/low copy/icon/hue tail is documented there, not yet all applied.
 
 ## Technology (confirmed 2026-08-22)
 
